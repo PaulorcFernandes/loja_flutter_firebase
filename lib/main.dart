@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loja_flutter_firebase/screens/base_screen.dart';
+import 'package:loja_flutter_firebase/screens/base/base_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'models/user_manager.dart';

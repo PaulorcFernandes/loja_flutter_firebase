@@ -22,6 +22,20 @@ class LoginScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Login'),
         centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 4, 125, 141),
+        actions: <Widget>[
+          ElevatedButton(onPressed: (){
+
+          },
+          child: Text(
+            'CRIAR CONTA', 
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white
+            ),
+          ),
+        )
+        ],
       ),
       body: Center(
         child: Card(
@@ -37,7 +51,10 @@ class LoginScreen extends StatelessWidget {
                       TextFormField(
                         controller: emailController,
                         enabled: !userManager.loading,
-                        decoration: const InputDecoration(hintText: 'E-mail'),
+                        decoration: const InputDecoration(
+                          hintText: 'E-mail', 
+                          suffixIcon: Icon(Icons.alternate_email),
+                        ),
                         keyboardType: TextInputType.emailAddress,
                         autocorrect: false,
                         validator: (email) {
@@ -51,7 +68,10 @@ class LoginScreen extends StatelessWidget {
                       TextFormField(
                         controller: passwordController,
                         enabled: !userManager.loading,
-                        decoration: const InputDecoration(hintText: 'Senha'),
+                        decoration: const InputDecoration(
+                          hintText: 'Senha',
+                          suffixIcon: Icon(Icons.lock),  
+                        ),
                         autocorrect: false,
                         obscureText: true,
                         validator: (pass) {
@@ -67,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                         height: 44,
                         child: ElevatedButton(
                           style: userManager.loading ? null : styleButton,
-                          onPressed: () {
+                          onPressed: userManager.loading ? null : () {
                             if (formKey.currentState.validate()) {
                               userManager.signIn(
                                   user: User(
@@ -75,12 +95,6 @@ class LoginScreen extends StatelessWidget {
                                     password: passwordController.text,
                                   ),
                                   onFail: (e) {
-                                    /* scaffoldStateKey.currentState.showSnackBar(
-                                      SnackBar(
-                                        content: Text('Falha ao entrar: $e'),
-                                        backgroundColor: Colors.red, depreciado
-                                      ),
-                                    ); */
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                           content: Text('Falha ao entrar: $e'),
@@ -92,7 +106,10 @@ class LoginScreen extends StatelessWidget {
                                   });
                             }
                           },
-                          child: Text(
+                          child: userManager.loading ? 
+                              CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation(Color.fromARGB(255, 4, 125, 141),),
+                              ) : Text(
                             'Entrar',
                             style: TextStyle(fontSize: 18),
                           ),
