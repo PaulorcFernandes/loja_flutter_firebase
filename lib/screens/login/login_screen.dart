@@ -12,11 +12,12 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /* inicio style */
+    /* inicio style  button*/
     final ButtonStyle styleButton = ElevatedButton.styleFrom(
       primary: const Color.fromARGB(255, 4, 125, 141),
+      elevation: 0
     );
-    /* fim style */
+    /* fim style button*/
     return Scaffold(
       key: scaffoldStateKey,
       appBar: AppBar(
@@ -25,8 +26,9 @@ class LoginScreen extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 4, 125, 141),
         actions: <Widget>[
           ElevatedButton(onPressed: (){
-
+            Navigator.of(context).pushReplacementNamed('/signup');
           },
+          style: styleButton,
           child: Text(
             'CRIAR CONTA', 
             style: TextStyle(

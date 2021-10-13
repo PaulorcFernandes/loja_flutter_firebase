@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_flutter_firebase/screens/base/base_screen.dart';
+import 'package:loja_flutter_firebase/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'models/user_manager.dart';
@@ -20,8 +21,22 @@ class MyApp extends StatelessWidget {
             primaryColor: const Color.fromARGB(255, 4, 125, 141),
             scaffoldBackgroundColor: const Color.fromARGB(255, 4, 125, 141),
             visualDensity: VisualDensity.adaptivePlatformDensity,
-            appBarTheme: const AppBarTheme(elevation: 0)),
-        home: BaseScreen(),
+            appBarTheme: const AppBarTheme(elevation: 0),
+        ),
+        initialRoute: '/base',
+        onGenerateRoute: (settings){
+          switch(settings.name){
+            case '/signup':
+              return MaterialPageRoute(
+                builder: (_) => SignUpScreen()
+              );
+            case '/base':
+            default:
+              return MaterialPageRoute(
+                builder: (_) => BaseScreen()
+              );
+          }
+        },
       ),
     );
   }

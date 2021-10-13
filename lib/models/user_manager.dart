@@ -5,8 +5,7 @@ import 'package:loja_flutter_firebase/helpers/firebase_errors.dart';
 import 'package:loja_flutter_firebase/models/user.dart';
 
 class UserManager extends ChangeNotifier {
-
-  UserManager(){
+  UserManager() {
     _loadCurrentUser();
   }
 
@@ -24,8 +23,21 @@ class UserManager extends ChangeNotifier {
         password: user.password,
       );
 
-    this.user = result.user;
+      this.user = result.user;
 
+      onSuccess();
+    } on PlatformException catch (e) {
+      onFail(getErrorString(e.code));
+    }
+    loading = false;
+  }
+
+  Future<void> signUp({User user, Function onFail, Function onSuccess}) async {
+    loading = true;
+    try {
+      final AuthResult result = await auth.createUserWithEmailAndPassword(
+          email: user.email, password: user.password);
+      this.user = result.user;
       onSuccess();
     } on PlatformException catch (e) {
       onFail(getErrorString(e.code));
@@ -40,7 +52,7 @@ class UserManager extends ChangeNotifier {
 
   Future<void> _loadCurrentUser() async {
     final FirebaseUser currentUser = await auth.currentUser();
-    if(currentUser != null) {
+    if (currentUser != null) {
       user = currentUser;
     }
     notifyListeners();
